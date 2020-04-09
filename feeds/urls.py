@@ -5,7 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from .views import CreatePost, PostDetails
 
 urlpatterns = {
-    path('post', CreatePost.as_view(), name="create"),
+    path('post', CreatePost.as_view(), name="post_create"),
     url(r'^post/(?P<pk>[0-9]+)/$',
         PostDetails.as_view(), name="details"),
 }
