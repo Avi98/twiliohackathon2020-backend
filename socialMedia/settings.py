@@ -25,7 +25,7 @@ SECRET_KEY = '5)67+2jkwz3z34b!aodil0p6)osv3x9bfilgfo!!pw152a-upt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '127.0.0.1.xip.io']
 
 # Auth application
 REST_FRAMEWORK = {
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'rest_framework',
+    'corsheaders',
     'feeds',
     'knox',
     'users',
@@ -55,13 +56,15 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
-
+CSRF_COOKIE_NAME = "csrftoken"
 ROOT_URLCONF = 'socialMedia.urls'
 
 TEMPLATES = [
@@ -131,3 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# cors enable
+
+CORS_ORIGIN_WHITELIST= ['http://localhost:3000',]

@@ -6,8 +6,9 @@ from .serializers import UserSerializer, UserRegistration, LoginSerializer
 # registration
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = UserRegistration
-
+    print('api')
     def post(self, request, *args, **kwargs):
+        print('Post ')
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save() 
