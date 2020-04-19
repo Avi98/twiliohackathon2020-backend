@@ -45,3 +45,12 @@ class ProfileSerializer(serializers.ModelSerializer):
             user = User.objects.create(user_id=user_id)
             profile = Profile.objects.create(**validated_data)
             return profile
+
+        def update(self, instance, validate_date):
+            instance.image= validate_date.get('image', instance.image)
+            instance.first_name= validate_date.get('first_name', instance.first_name)
+            instance.last_name= validate_date.get('last_name', instance.last_name)
+            instance.description= validate_date.get('description', instance.description)
+            instance.current_location= validate_date.get('current_location', instance.current_location)
+            instance.save()
+            return instance
