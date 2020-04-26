@@ -1,0 +1,8 @@
+Collecting Pillow
+  Downloading Pillow-7.1.2-cp37-cp37m-macosx_10_10_x86_64.whl (2.2 MB)
+Installing collected packages: Pillow
+  Attempting uninstall: Pillow
+    Found existing installation: Pillow 7.1.1
+    Uninstalling Pillow-7.1.1:
+      Successfully uninstalled Pillow-7.1.1
+Successfully installed Pillow-7.1.2
