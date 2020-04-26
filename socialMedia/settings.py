@@ -25,7 +25,7 @@ SECRET_KEY = '5)67+2jkwz3z34b!aodil0p6)osv3x9bfilgfo!!pw152a-upt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'whispering-hollows-69916.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://hidden-reef-09190.herokuapp.com']
 
 # Auth application
 REST_FRAMEWORK = {
@@ -137,6 +137,10 @@ USE_TZ = True
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_DIR, 'static'),
+)
 
 # cors enable
 
