@@ -50,7 +50,6 @@ class ProfileViewSet(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
     def get(self,  request):
-        print('request', request)
         serializer = ProfileSerializer(request.user.profile)
         return Response({
             'profile': serializer.data

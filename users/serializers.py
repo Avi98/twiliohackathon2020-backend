@@ -7,12 +7,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model= User
         fields = ('id', 'username', 'email')
+        depth=1
 
 class UserRegistration(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'password')
         extra_kwargs = {'password': {'write_only': True}}
+        depth=1
 
     def create(self, validate_date):
         user = User.objects.create_user(validate_date['username'], validate_date['email'], validate_date['password'])
