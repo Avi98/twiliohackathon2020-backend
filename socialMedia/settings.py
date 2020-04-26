@@ -69,6 +69,14 @@ MIDDLEWARE = [
 CSRF_COOKIE_NAME = "csrftoken"
 ROOT_URLCONF = 'socialMedia.urls'
 
+
+# cors enable
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+# ALLOWED_HOSTS = ['*']
+# CORS_ORIGIN_WHITELIST= ['http://localhost:3000', 'http://whispering-hollows-69916.herokuapp.com', 'https://hidden-reef-09190.herokuapp.com']
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -142,10 +150,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'static'),
 )
-
-# cors enable
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST= ['http://localhost:3000', 'whispering-hollows-69916.herokuapp.com', 'https://hidden-reef-09190.herokuapp.com']
 
 django_heroku.settings(locals())
