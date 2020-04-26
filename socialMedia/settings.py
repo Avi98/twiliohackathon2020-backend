@@ -145,6 +145,7 @@ STATICFILES_DIRS = (
 
 # cors enable
 
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST= ['http://localhost:3000', 'whispering-hollows-69916.herokuapp.com']
 
 django_heroku.settings(locals())
