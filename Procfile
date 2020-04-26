@@ -1,1 +1,1 @@
-web: gunicorn covidHelp.wsgi --log-file -
+web: gunicorn socialMedia.wsgi --log-file -
