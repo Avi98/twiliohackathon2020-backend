@@ -26,10 +26,11 @@ class ProductsViewSet(APIView):
 
     def get(self, response, pk):
         if response.query_params.get('id'):
-            product = Products.objects.filter(user_id=pk, id = response.query_params.__getitem__('id'))
+            product = Products.objects.filter(
+                user_id=pk, id=response.query_params.__getitem__('id'))
             serilaizer = ProductsSerializer(product, many=True)
             return Response(serilaizer.data)
-            
+
         product = Products.objects.filter(user_id=pk)
         serilaizer = ProductsSerializer(product, many=True)
 
@@ -42,5 +43,21 @@ class ProductsViewSet(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
-    
-    
+
+    def patch(self, request, pk):
+        toUpdateProduct = Products.objects.filter(
+            user_id=pk, id=request.query_params.__getitem__('id')).first()
+        serializer = ProductsSerializer(toUpdateProduct,
+                                        context={'request': request}, data=request.data)
+        if serializer.is_valid():
+            id = request.query_params.get('id')
+            serializer.save()
+            return Response({'message': f'updated{id} post'})
+        return Response(serializer.errors)
+
+    def delete(self, request, pk):
+        id = request.query_params.__getitem__('id')
+        toDeleteProduct = toUpdateProduct = Products.objects.filter(
+            user_id=pk, id=id).first()
+        toDeleteProduct.delete()
+        return Response({'massage': f'successfully deleted {id}'})

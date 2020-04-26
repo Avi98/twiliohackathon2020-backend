@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django-heroku
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -56,9 +56,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,6 +68,14 @@ MIDDLEWARE = [
 ]
 CSRF_COOKIE_NAME = "csrftoken"
 ROOT_URLCONF = 'socialMedia.urls'
+
+
+# cors enable
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+# ALLOWED_HOSTS = ['*']
+# CORS_ORIGIN_WHITELIST= ['http://localhost:3000', 'http://whispering-hollows-69916.herokuapp.com', 'https://hidden-reef-09190.herokuapp.com']
+
 
 TEMPLATES = [
     {
@@ -142,9 +150,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'static'),
 )
-
-# cors enable
-
-CORS_ORIGIN_WHITELIST= ['http://localhost:3000',]
 
 django_heroku.settings(locals())
