@@ -3,22 +3,26 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from .models import Profile
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model= User
+        model = User
         fields = ('id', 'username', 'email')
-        depth=1
+        depth = 1
+
 
 class UserRegistration(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'password')
         extra_kwargs = {'password': {'write_only': True}}
-        depth=1
+        depth = 1
 
     def create(self, validate_date):
-        user = User.objects.create_user(validate_date['username'], validate_date['email'], validate_date['password'])
-        return user 
+        user = User.objects.create_user(
+            validate_date['username'], validate_date['email'], validate_date['password'])
+        return user
+
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -30,29 +34,50 @@ class LoginSerializer(serializers.Serializer):
             return user
         raise serializers.ValidationError('Incorrect Credentails')
 
-#profile
+# profile
+
 
 class ProfileSerializer(serializers.ModelSerializer):
+    # id = serializers.IntegerField(source='profile.id')
     user_id = serializers.IntegerField(source='user.id')
-    user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
-    profile=Profile
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True, default=serializers.CurrentUserDefault())
+    profile = Profile
     # depth=2
+
     class Meta:
         model = Profile
-        fields= ('user','image', 'first_name', 'last_name', 'description','mobile', 'current_location','user_id')
-        read_only_fields=('user','user_id')
+        fields = ('id','user', 'image', 'first_name', 'last_name',
+                  'description', 'mobile', 'current_location', 'user_id')
+        read_only_fields = ('user', 'user_id')
 
-        def create(self,validated_data):
+        def create(self, validated_data):
             user_id = validated_data.pop('user_id')
-            user = User.objects.create(user_id=user_id)
-            profile = Profile.objects.create(**validated_data)
+            user = User.objects.filter(user_id=user_id).first()
+            profile = Profile.objects.create(user=user,
+                                             image=validated_data.get('image'),
+                                             first_name=validated_data.get(
+                                                 'first_name'),
+                                             last_name=validated_data.get(
+                                                 'last_name'),
+                                             description=validated_data.get(
+                                                 'description'),
+                                             mobile=validated_data.get(
+                                                 'mobile'),
+                                             current_location=validated_data.get(
+                                                 'current_location'),
+                                             user_id=validated_data.get('user_id'))
             return profile
 
         def update(self, instance, validate_date):
-            instance.image= validate_date.get('image', instance.image)
-            instance.first_name= validate_date.get('first_name', instance.first_name)
-            instance.last_name= validate_date.get('last_name', instance.last_name)
-            instance.description= validate_date.get('description', instance.description)
-            instance.current_location= validate_date.get('current_location', instance.current_location)
+            instance.image = validate_date.get('image', instance.image)
+            instance.first_name = validate_date.get(
+                'first_name', instance.first_name)
+            instance.last_name = validate_date.get(
+                'last_name', instance.last_name)
+            instance.description = validate_date.get(
+                'description', instance.description)
+            instance.current_location = validate_date.get(
+                'current_location', instance.current_location)
             instance.save()
             return instance
