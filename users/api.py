@@ -63,7 +63,7 @@ class ProfileViewSet(APIView):
         return Response(serializer.errors)
         
     def patch(self, request):
-        profile = Profile()
+        profile = Profile.objects.filter(user_id=request.data.get('user_id')).first()
         serializer = ProfileSerializer(profile, context={'request': request},data=request.data)
         if serializer.is_valid():
             serializer.update(instance=profile, validated_data=request.data)
