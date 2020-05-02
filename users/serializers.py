@@ -47,27 +47,28 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id','user', 'image', 'first_name', 'last_name',
+        fields = ('id', 'user', 'image', 'first_name', 'last_name',
                   'description', 'mobile', 'current_location', 'user_id')
         read_only_fields = ('user', 'user_id')
 
-        def create(self, validated_data):
-            user_id = validated_data.pop('user_id')
-            user = User.objects.filter(user_id=user_id).first()
-            profile = Profile.objects.create(user=user,
-                                             image=validated_data.get('image'),
-                                             first_name=validated_data.get(
-                                                 'first_name'),
-                                             last_name=validated_data.get(
-                                                 'last_name'),
-                                             description=validated_data.get(
-                                                 'description'),
-                                             mobile=validated_data.get(
-                                                 'mobile'),
-                                             current_location=validated_data.get(
-                                                 'current_location'),
-                                             user_id=validated_data.get('user_id'))
-            return profile
+        # def create(self, validated_data):
+        #     # user_id = validated_data.pop('user_id')
+        #     user = User.objects.filter(user_id=user_id).first()
+        #     user_profile = profile.objects.get(pk=validated_data.get('id'))
+        #     print('user_profile', user_profile)
+        #     user_profile.image = validated_data.get('image'),
+        #     user_profile.first_name = validated_data.get(
+        #         'first_name'),
+        #     user_profile.last_name = validated_data.get(
+        #         'last_name'),
+        #     user_profile.description = validated_data.get(
+        #         'description'),
+        #     user_profile.mobile = validated_data.get(
+        #         'mobile'),
+        #     user_profile.current_location = validated_data.get(
+        #         'current_location'),
+        #     user_profile.user_id = validated_data.get('user_id')
+        #     return user_profile.save()
 
         def update(self, instance, validate_date):
             instance.image = validate_date.get('image', instance.image)

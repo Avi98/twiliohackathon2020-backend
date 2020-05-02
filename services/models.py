@@ -13,3 +13,7 @@ class Products(models.Model):
     image1 = models.ImageField(default='defaultProfileImg.png', upload_to='_profile_img', blank=False, null=False)
     image2 = models.ImageField(default='defaultProfileImg.png', upload_to='_profile_img', blank=True, null=True)
     image3 = models.ImageField(default='defaultProfileImg.png', upload_to='_profile_img', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+        
