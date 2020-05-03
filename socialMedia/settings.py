@@ -71,10 +71,10 @@ ROOT_URLCONF = 'socialMedia.urls'
 
 
 # cors enable
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
-# ALLOWED_HOSTS = ['*']
-# CORS_ORIGIN_WHITELIST= ['http://localhost:3000', 'http://whispering-hollows-69916.herokuapp.com', 'https://hidden-reef-09190.herokuapp.com']
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_WHITELIST= ['http://localhost:3000', 'http://whispering-hollows-69916.herokuapp.com', 'https://hidden-reef-09190.herokuapp.com']
 
 
 TEMPLATES = [

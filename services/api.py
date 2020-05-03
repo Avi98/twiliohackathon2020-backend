@@ -1,9 +1,9 @@
-from .models import Products
+from .models import Products, Comments
 from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework.views import APIView
 from knox.auth import TokenAuthentication
-from .serializers import ProductsSerializer
+from .serializers import ProductsSerializer, CommentsSerializer
 from rest_framework.response import Response
 
 # Create your views here.
@@ -61,3 +61,17 @@ class ProductsViewSet(APIView):
             user_id=pk, id=id).first()
         toDeleteProduct.delete()
         return Response({'massage': f'successfully deleted {id}'})
+
+class CommentsViewSet(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classess = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        comment = Comments.objects.all()
+        serializer = CommentsSerializer(comment, many=True)
+
+        return Response(serializer.data)
+
+
+
+        
