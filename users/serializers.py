@@ -50,7 +50,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'image', 'first_name', 'last_name',
                   'description', 'mobile', 'current_location', 'user_id')
         read_only_fields = ('user', 'user_id')
-
+        
         def update(self, instance, validate_date):
             instance.image = validate_date.get('image', instance.image)
             instance.first_name = validate_date.get(

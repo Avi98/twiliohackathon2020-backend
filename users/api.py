@@ -61,8 +61,16 @@ class ProfileViewSet(APIView):
         })
 
     def post(self, request):
+        # user_id = request.data['user_id']
+        # request.data.pop('user_id')
+        # request.data['user_id'] = int(user_id)
+        # request.data.update({'user_id': int(user_id) })
+        data = request.data.copy()
+        print('data', data)
+        print('request.data', request.data)
         serializer = ProfileSerializer(
             context={'request': request}, data=request.data)
+
         if serializer.is_valid():
             serializer.create(validated_data=request.data)
             return Response(serializer.data)
